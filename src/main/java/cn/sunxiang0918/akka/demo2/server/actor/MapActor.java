@@ -1,13 +1,13 @@
 package cn.sunxiang0918.akka.demo2.server.actor;
 
+import akka.actor.ActorRef;
+import akka.actor.UntypedActor;
+import cn.sunxiang0918.akka.demo2.server.model.Result;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import akka.actor.ActorRef;
-import akka.actor.UntypedActor;
-import cn.sunxiang0918.akka.demo2.server.model.Result;
 
 /**
  * @author SUN
@@ -16,7 +16,6 @@ import cn.sunxiang0918.akka.demo2.server.model.Result;
  */
 public class MapActor extends UntypedActor {
 
-    //停用词
     String[] STOP_WORDS = {"a", "about", "above", "above", "across", "after",
             "afterwards", "again", "against", "all", "almost", "alone",
             "along", "already", "also", "although", "always", "am", "among",
@@ -66,7 +65,7 @@ public class MapActor extends UntypedActor {
 
     List<String> STOP_WORDS_LIST = Arrays.asList(STOP_WORDS);
 
-    /*reduce聚合的Actor*/
+    /**reduce聚合的Actor*/
     private ActorRef actor = null;
 
     public MapActor(ActorRef inReduceActor) {

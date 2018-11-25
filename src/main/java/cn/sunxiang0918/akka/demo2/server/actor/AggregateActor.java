@@ -1,9 +1,9 @@
 package cn.sunxiang0918.akka.demo2.server.actor;
 
+import akka.actor.UntypedActor;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import akka.actor.UntypedActor;
 
 /**
  * @author SUN
@@ -12,7 +12,7 @@ import akka.actor.UntypedActor;
  */
 public class AggregateActor extends UntypedActor {
 
-    /*最终的结果*/
+
     private Map<String, Integer> finalReducedMap = new HashMap<>();
 
     @Override

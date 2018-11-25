@@ -50,11 +50,7 @@ public class ClientActor extends UntypedActor {
     @Override
     public void postStop() {
         /*计算用时*/
-        // tell the world that the calculation is complete
         long timeSpent = (System.currentTimeMillis() - start);
-        System.out
-                .println(String
-                        .format("\n\tClientActor estimate: \t\t\n\tCalculation time: \t%s MS",
-                                timeSpent));
+        System.out.println(String.format("\nClientActor estimate: \nCalculation time: %s MS", timeSpent));
     }
 }

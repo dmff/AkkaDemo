@@ -1,12 +1,12 @@
 package cn.sunxiang0918.akka.demo2.server.actor;
 
-import java.util.List;
-import java.util.NavigableMap;
-import java.util.concurrent.ConcurrentSkipListMap;
-
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import cn.sunxiang0918.akka.demo2.server.model.Result;
+
+import java.util.List;
+import java.util.NavigableMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * @author SUN
@@ -15,7 +15,7 @@ import cn.sunxiang0918.akka.demo2.server.model.Result;
  */
 public class ReduceActor extends UntypedActor {
 
-    /*管道Actor*/
+    /**管道Actor*/
     private ActorRef actor = null;
 
     public ReduceActor(ActorRef inAggregateActor) {

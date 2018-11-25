@@ -18,17 +18,15 @@ public class MyPriorityMailBox extends UnboundedPriorityMailbox {
      */
     public MyPriorityMailBox(ActorSystem.Settings settings, Config config) {
 
-        // Creating a new PriorityGenerator,
         super(new PriorityGenerator() {
             @Override
             public int gen(Object message) {
                 if (message.equals("DISPLAY_LIST"))
-                    return 2; // 'DisplayList messages should be treated
-                    // last if possible
+                    return 2;
                 else if (message.equals(PoisonPill.getInstance()))
-                    return 3; // PoisonPill when no other left
+                    return 3;
                 else
-                    return 0; // By default they go with high priority
+                    return 0;
             }
         });
     }

@@ -17,29 +17,21 @@ import com.typesafe.config.ConfigFactory;
  */
 public class WCMapReduceServer{
 
-    private ActorRef mapRouter;
-    private ActorRef reduceRouter;
-    private ActorRef aggregateActor;
-    private ActorRef wcMapReduceActor;
-
-    public WCMapReduceServer(int no_of_reduce_workers, int no_of_map_workers) {
-        /*创建了Actor系统*/
-        ActorSystem system = ActorSystem.create("WCMapReduceApp", ConfigFactory.load("application")
-                .getConfig("WCMapReduceApp"));
-
+    public WCMapReduceServer(int reduceWorkers, int mapWorkers) {
+        ActorSystem system = ActorSystem.create("WCMapReduceApp", ConfigFactory.load("application").getConfig("WCMapReduceApp"));
         // 创建聚合Actor
-        aggregateActor = system.actorOf(Props.create(AggregateActor.class));
+        ActorRef aggregateActor = system.actorOf(Props.create(AggregateActor.class));
 
-        // 创建多个聚合的Actor
-        reduceRouter = system.actorOf(Props.create(ReduceActor.class,aggregateActor).withRouter(new RoundRobinPool(no_of_reduce_workers)));
+        // 创建多个Reduce的Actor
+        ActorRef reduceRouter = system.actorOf(Props.create(ReduceActor.class,aggregateActor).withRouter(new RoundRobinPool(reduceWorkers)));
 
         // 创建多个Map的Actor
-        mapRouter = system.actorOf(Props.create(MapActor.class,reduceRouter).withRouter(new RoundRobinPool(no_of_map_workers)));
+        ActorRef mapRouter = system.actorOf(Props.create(MapActor.class,reduceRouter).withRouter(new RoundRobinPool(mapWorkers)));
 
         // create the overall WCMapReduce Actor that acts as the remote actor
         // for clients
         Props props = Props.create(WCMapReduceActor.class,aggregateActor,mapRouter).withDispatcher("priorityMailBox-dispatcher");
-        wcMapReduceActor = system.actorOf(props, "WCMapReduceActor");
+        ActorRef wcMapReduceActor = system.actorOf(props, "WCMapReduceActor");
     }
 
     /**
