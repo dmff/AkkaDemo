@@ -10,9 +10,27 @@ import scala.concurrent.Future;
  */
 public interface Squarer {
 
-    Future<Integer> square(int i); //non-blocking send-request-reply
+    /**
+     * 异步非阻塞
+     *
+     * @param i
+     * @return
+     */
+    Future<Integer> square(int i);
 
-    Option<Integer> squareNowPlease(int i);//blocking send-request-reply
+    /**
+     * 异步阻塞
+     *
+     * @param i
+     * @return
+     */
+    Option<Integer> squareNowPlease(int i);
 
-    int squareNow(int i); //blocking send-request-reply
+    /**
+     * 同步阻塞
+     *
+     * @param i
+     * @return
+     */
+    int squareNow(int i);
 }

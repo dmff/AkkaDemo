@@ -22,32 +22,19 @@ public class AkkaMain {
 
     public static void main(String[] args) throws Exception {
         final ActorSystem system = ActorSystem.create("helloakka");
-
         /*默认构造方法的Actor*/
         Squarer mySquarer = TypedActor.get(system).typedActorOf(new TypedProps<>(Squarer.class, SquarerImpl.class));
-
         /*传参构造的Actor*/
-        Squarer otherSquarer =
-                TypedActor.get(system).typedActorOf(new TypedProps<>(Squarer.class,
-                                new Creator<SquarerImpl>() {
-                                    public SquarerImpl create() {
-                                        return new SquarerImpl("foo");
-                                    }
-                                }),
-                        "name");
-
-
-        Option<Integer> oSquare = mySquarer.squareNowPlease(10); //Option[Int]
+        Squarer otherSquarer = TypedActor.get(system).typedActorOf(new TypedProps<>(Squarer.class, (Creator<SquarerImpl>) () -> new SquarerImpl("foo")), "name");
+        Option<Integer> oSquare = mySquarer.squareNowPlease(10);
         System.out.println("阻塞异步调用执行外面");
         //获取结果
         System.out.println(oSquare.get());
-        
-        Future<Integer> fSquare = mySquarer.square(10); //A Future[Int]
+
+        Future<Integer> fSquare = mySquarer.square(10);
         System.out.println("非阻塞异步执行外面");
         //等待5秒内返回结果
         System.out.println(Await.result(fSquare, Duration.apply(5, TimeUnit.SECONDS)));
-        
         TypedActor.get(system).stop(mySquarer);
-        
     }
 }

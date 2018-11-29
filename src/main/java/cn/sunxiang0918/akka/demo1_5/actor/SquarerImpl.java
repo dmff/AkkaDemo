@@ -21,14 +21,17 @@ public class SquarerImpl implements Squarer {
         this.name = name;
     }
 
+    @Override
     public Future<Integer> square(int i) {
         return Futures.successful(squareNow(i));
     }
-    
+
+    @Override
     public Option<Integer> squareNowPlease(int i) {
         return Option.some(squareNow(i));
     }
 
+    @Override
     public int squareNow(int i) {
         try {
             Thread.sleep(100);

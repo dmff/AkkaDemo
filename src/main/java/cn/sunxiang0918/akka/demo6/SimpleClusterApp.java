@@ -26,9 +26,7 @@ public class SimpleClusterApp {
             ActorSystem system = ActorSystem.create("ClusterSystem", config);
 
             // 创建集群中的Actor,并监听事件
-            system.actorOf(Props.create(SimpleClusterListener.class),
-                    "clusterListener");
-
+            system.actorOf(Props.create(SimpleClusterListener.class), "clusterListener");
         }
     }
 }

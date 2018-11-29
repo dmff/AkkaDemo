@@ -16,9 +16,7 @@ public class EventProcessorMain {
                 withFallback(ConfigFactory.load("demo8"));
 
         final ActorSystem system = ActorSystem.create("event-cluster-system", config);
-
         ActorRef processingActor = system.actorOf(Props.create(EventProcessor.class), "processingActor");
-
         system.log().info("Processing Actor: " + processingActor);
     }
 }
