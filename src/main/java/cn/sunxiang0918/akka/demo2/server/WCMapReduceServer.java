@@ -21,14 +21,10 @@ public class WCMapReduceServer{
         ActorSystem system = ActorSystem.create("WCMapReduceApp", ConfigFactory.load("application").getConfig("WCMapReduceApp"));
         // 创建聚合Actor
         ActorRef aggregateActor = system.actorOf(Props.create(AggregateActor.class));
-
         // 创建多个Reduce的Actor
         ActorRef reduceRouter = system.actorOf(Props.create(ReduceActor.class,aggregateActor).withRouter(new RoundRobinPool(reduceWorkers)));
-
         // 创建多个Map的Actor
         ActorRef mapRouter = system.actorOf(Props.create(MapActor.class,reduceRouter).withRouter(new RoundRobinPool(mapWorkers)));
-
-        // create the overall WCMapReduce Actor that acts as the remote actor
         // for clients
         Props props = Props.create(WCMapReduceActor.class,aggregateActor,mapRouter).withDispatcher("priorityMailBox-dispatcher");
         ActorRef wcMapReduceActor = system.actorOf(props, "WCMapReduceActor");

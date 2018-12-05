@@ -1,15 +1,14 @@
 package cn.sunxiang0918.akka.demo7;
 
-import java.math.BigInteger;
-
 import akka.actor.UntypedActor;
 import akka.dispatch.Mapper;
 import scala.concurrent.Future;
 
+import java.math.BigInteger;
+
 import static akka.dispatch.Futures.future;
 import static akka.pattern.Patterns.pipe;
 
-//#backend
 public class FactorialBackend extends UntypedActor {
 
     @Override
@@ -19,10 +18,10 @@ public class FactorialBackend extends UntypedActor {
             final Integer n = (Integer) message;
             /*使用akka的future功能,异步的计算阶乘*/
             Future<BigInteger> f = future(() -> factorial(n), getContext().dispatcher());
-
             /*合并计算的结果*/
             Future<FactorialResult> result = f.map(
                     new Mapper<BigInteger, FactorialResult>() {
+                        @Override
                         public FactorialResult apply(BigInteger factorial) {
                             return new FactorialResult(n, factorial);
                         }
@@ -37,6 +36,7 @@ public class FactorialBackend extends UntypedActor {
 
     /**
      * 进行阶乘计算
+     *
      * @param n
      * @return
      */
@@ -48,5 +48,4 @@ public class FactorialBackend extends UntypedActor {
         return acc;
     }
 }
-//#backend
 

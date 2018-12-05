@@ -30,16 +30,12 @@ public class ReduceActor extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
         if (message instanceof List) {
-
             /*强制转换结果*/
             List<Result> work = (List<Result>) message;
-
             // 第一次汇总单词表结果.
             NavigableMap<String, Integer> reducedList = reduce(work);
-
             // 把这次汇总的结果发送给最终的结果聚合Actor
             actor.tell(reducedList, null);
-
         }else if (message instanceof Boolean) {
             //表示已经计算结束了
             // 把这次汇总的结果发送给最终的结果聚合Actor
@@ -54,9 +50,7 @@ public class ReduceActor extends UntypedActor {
      * @return
      */
     private NavigableMap<String, Integer> reduce(List<Result> list) {
-
         NavigableMap<String, Integer> reducedMap = new ConcurrentSkipListMap<>();
-
         for (Result result : list) {
             /*遍历结果,如果在这个小的结果中已经存在相同的单词了,那么数量+1,否则新建*/
             if (reducedMap.containsKey(result.getWord())) {

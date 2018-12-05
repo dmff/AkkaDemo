@@ -10,7 +10,6 @@ public class FactorialFrontendMain {
 
     public static void main(String[] args) {
         final int upToN = 10;
-
         final Config config = ConfigFactory.parseString("akka.cluster.roles = [frontend]")
                 .withFallback(ConfigFactory.load("demo7"));
 

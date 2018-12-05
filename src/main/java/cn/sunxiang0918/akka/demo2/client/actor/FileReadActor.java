@@ -1,10 +1,10 @@
 package cn.sunxiang0918.akka.demo2.client.actor;
 
+import akka.actor.UntypedActor;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import akka.actor.UntypedActor;
 
 /**
  * 从文件里面获取出行数
@@ -18,7 +18,6 @@ public class FileReadActor extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
-            /*如果消息是String类型的*/
             String fileName = (String) message;
             try {
                 BufferedReader reader = new BufferedReader(

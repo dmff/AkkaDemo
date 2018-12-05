@@ -15,7 +15,6 @@ public class FactorialBackendMain {
                 withFallback(ConfigFactory.load("demo7"));
 
         ActorSystem system = ActorSystem.create("ClusterSystem", config);
-
         system.actorOf(Props.create(FactorialBackend.class), "factorialBackend");
 
     }

@@ -9,8 +9,8 @@ import java.io.Serializable;
  */
 public class Result implements Serializable {
 
-    private String word;            //单词
-    private String name;        //数量
+    private String word;
+    private String name;
 
     public Result(String word, String name) {
         this.name = name;

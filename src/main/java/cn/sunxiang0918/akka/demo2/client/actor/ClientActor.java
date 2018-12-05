@@ -35,7 +35,6 @@ public class ClientActor extends UntypedActor {
             System.out.println("聚合完成");
             //聚合完成后发送显示结果的消息
             remoteServer.tell("DISPLAY_LIST",null);
-
             //执行完毕,关机
             getContext().stop(self());
         }
@@ -43,13 +42,11 @@ public class ClientActor extends UntypedActor {
 
     @Override
     public void preStart() {
-        /*记录开始时间*/
         start = System.currentTimeMillis();
     }
 
     @Override
     public void postStop() {
-        /*计算用时*/
         long timeSpent = (System.currentTimeMillis() - start);
         System.out.println(String.format("\nClientActor estimate: \nCalculation time: %s MS", timeSpent));
     }

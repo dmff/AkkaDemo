@@ -22,7 +22,7 @@ public class WCMapReduceActor extends UntypedActor{
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
             /*如果接收到的是显示结果的请求,那么就调用reduce的Actor*/
-            if (((String) message).compareTo("DISPLAY_LIST") == 0) {
+            if (((String) message).equals("DISPLAY_LIST")) {
                 System.out.println("Got Display Message");
                 aggregateActor.tell(message, getSender());
             }if (message.equals("EOF")){

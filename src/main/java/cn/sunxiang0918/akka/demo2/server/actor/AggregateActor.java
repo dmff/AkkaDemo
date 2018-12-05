@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class AggregateActor extends UntypedActor {
 
-
     private Map<String, Integer> finalReducedMap = new HashMap<>();
 
     @Override
@@ -31,7 +30,6 @@ public class AggregateActor extends UntypedActor {
             if (((String) message).compareTo("DISPLAY_LIST") == 0) {
                 //getSender().tell(finalReducedMap.toString());
                 System.out.println(finalReducedMap.toString());
-               
             }
         }else if (message instanceof Boolean) {
             /*向客户端发送已经reduce完成的信息*/
@@ -40,7 +38,6 @@ public class AggregateActor extends UntypedActor {
     }
 
     private void aggregateInMemoryReduce(Map<String, Integer> reducedList) {
-
         for (String key : reducedList.keySet()) {
             /*最终的数量的累加*/
             if (finalReducedMap.containsKey(key)) {

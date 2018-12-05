@@ -1,8 +1,5 @@
 package cn.sunxiang0918.akka.demo8;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
@@ -11,6 +8,9 @@ import akka.cluster.ClusterEvent;
 import akka.cluster.Member;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ClusterRoledWorker extends UntypedActor{
 
@@ -41,7 +41,6 @@ public abstract class ClusterRoledWorker extends UntypedActor{
 
     protected void register(Member member,String actorPath) {
         ActorSelection actorSelection = getContext().actorSelection(actorPath);
-        
         /*发送注册消息*/
         actorSelection.tell(new EventMessages.Registration(),getSelf());
     }

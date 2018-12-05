@@ -1,6 +1,4 @@
-package cn.sunxiang0918.akka.demo9;
-
-import java.util.Random;
+package cn.sunxiang0918.akka.demo1;
 
 import akka.actor.ActorSystem;
 import akka.dispatch.Futures;
@@ -8,6 +6,8 @@ import akka.dispatch.OnComplete;
 import akka.dispatch.OnFailure;
 import akka.dispatch.OnSuccess;
 import scala.concurrent.Future;
+
+import java.util.Random;
 
 public class FutureTest {
 
@@ -19,7 +19,6 @@ public class FutureTest {
                 System.out.println("这里是andThen1");
             }
         };
-
         OnComplete<String> complete2 = new OnComplete<String>() {
             @Override
             public void onComplete(Throwable failure, String success) throws Throwable {

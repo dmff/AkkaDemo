@@ -1,4 +1,4 @@
-package cn.sunxiang0918.akka.demo1_5.actor;
+package cn.sunxiang0918.akka.demo1.typeactor;
 
 import akka.japi.Option;
 import scala.concurrent.Future;

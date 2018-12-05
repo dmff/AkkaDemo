@@ -115,16 +115,13 @@ public class MapActor extends UntypedActor {
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
             String work = (String) message;
-            
             if (work.equals("EOF")){
-                /*表示已经结束了*/
                 actor.tell(true,null);
                 return;
             }
             
             // 计算这一行的单词情况
             List<Result> list = evaluateExpression(work);
-
             // 把这一行的单词情况发送给汇总的ReduceActor
             actor.tell(list, null);
         } else
