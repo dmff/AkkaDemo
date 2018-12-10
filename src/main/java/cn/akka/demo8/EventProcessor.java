@@ -1,11 +1,10 @@
-package cn.sunxiang0918.akka.demo8;
+package cn.akka.demo8;
 
 import akka.cluster.ClusterEvent;
 import akka.cluster.Member;
 import akka.cluster.MemberStatus;
-import cn.sunxiang0918.akka.demo8.kafka.KafkaTemplate;
+import cn.akka.demo8.kafka.KafkaTemplate;
 import com.alibaba.fastjson.JSON;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;

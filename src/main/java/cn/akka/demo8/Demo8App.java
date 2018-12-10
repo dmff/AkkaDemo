@@ -1,4 +1,6 @@
-package cn.sunxiang0918.akka.demo8;
+package cn.akka.demo8;
+
+
 
 public class Demo8App {
 

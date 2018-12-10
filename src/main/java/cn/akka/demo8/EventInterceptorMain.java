@@ -1,4 +1,4 @@
-package cn.sunxiang0918.akka.demo8;
+package cn.akka.demo8;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
