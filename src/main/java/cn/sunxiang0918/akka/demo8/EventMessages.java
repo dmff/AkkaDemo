@@ -2,17 +2,16 @@ package cn.sunxiang0918.akka.demo8;
 
 import java.io.Serializable;
 
-//#messages
 public interface EventMessages {
 
-    public static class EventMessage implements Serializable {
+    class EventMessage implements Serializable {
 
     }
 
     /**
      * 内存中的Nginx的日志
      */
-    public static class RawNginxRecord extends EventMessage {
+    class RawNginxRecord extends EventMessage {
 
         private String sourceHost;
 
@@ -35,7 +34,7 @@ public interface EventMessages {
     /**
      * 解析出了事件内容的Nginx记录
      */
-    public static class NginxRecord extends EventMessage {
+    class NginxRecord extends EventMessage {
 
         private String sourceHost;
 
@@ -65,7 +64,7 @@ public interface EventMessages {
     /**
      * 通过了拦截器的日志记录
      */
-    public static class FilteredRecord extends EventMessage {
+    class FilteredRecord extends EventMessage {
 
         private String sourceHost;
 
@@ -109,8 +108,7 @@ public interface EventMessages {
     /**
      * 子系统注册的消息
      */
-    public static final class Registration implements Serializable {
+    final class Registration implements Serializable {
     }
 
 }
-//#messages

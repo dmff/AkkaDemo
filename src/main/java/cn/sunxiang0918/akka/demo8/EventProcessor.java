@@ -1,23 +1,23 @@
 package cn.sunxiang0918.akka.demo8;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import akka.cluster.ClusterEvent;
 import akka.cluster.Member;
 import akka.cluster.MemberStatus;
 import cn.sunxiang0918.akka.demo8.kafka.KafkaTemplate;
 import com.alibaba.fastjson.JSON;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class EventProcessor extends ClusterRoledWorker {
 
-    /*内容的正则表达式*/
+    /**内容的正则表达式*/
     private Pattern PATTERN = Pattern.compile("[\\?|&]([^=]+)=([^&]+)&");
 
-    /*kafka的连接工具*/
-    private KafkaTemplate kafkaTemplate = new KafkaTemplate("127.0.0.1:8092");
+    /**kafka的连接工具*/
+    private KafkaTemplate kafkaTemplate = new KafkaTemplate("192.168.56.200:9092");
     
     @Override
     public void onReceive(Object message) throws Exception {
@@ -54,25 +54,21 @@ public class EventProcessor extends ClusterRoledWorker {
             log.info("Processed: data=" + data);
             
             // 将解析后的消息一JSON字符串的格式，保存到Kafka中
-            kafkaTemplate.convertAndSend("app_events", JSON.toJSONString(data));
+            kafkaTemplate.convertAndSend("mykafka", JSON.toJSONString(data));
         }
     }
 
     private Map<String, String> process(String eventCode, String line, String logDate, String realIp) {
 
         Map<String, String> data = new HashMap<>();
-        
         Matcher matcher = PATTERN.matcher(line);
-
         while (matcher.find()) {
             String key = matcher.group(1);
             String value = matcher.group(2);
             data.put(key,value);
         }
-
         data.put("eventdate", logDate);
         data.put("realip", realIp);
-
         return data;
     }
 

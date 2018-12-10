@@ -4,7 +4,7 @@ public class Demo8App {
 
     public static void main(String[] args) throws Exception {
 
-        // 启动一个Client
+        // 启动一个Client，收集数据
         EventClient.main(new String[0]);
         
         // 启动两个Interceptor

@@ -1,23 +1,19 @@
 package cn.sunxiang0918.akka.demo8;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class EventClient {
 
-    /*假的Nginx的日志,Key是Nginx的端口,Value是日志内容,一行一个*/
+    /**假的Nginx的日志,Key是Nginx的端口,Value是日志内容,一行一个*/
     private static Map<Integer,List<String>> events=new HashMap<>();
     
     static {
@@ -44,7 +40,6 @@ public class EventClient {
     private static Map<Integer,ActorRef> actors = new HashMap<>();
     
     public static void main(String[] args) throws Exception {
-
         /*根据端口号的多少,启动多少个Collector在集群中*/
         ports.forEach(port -> {
             final Config config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port).
@@ -53,12 +48,10 @@ public class EventClient {
             final ActorSystem system = ActorSystem.create("event-cluster-system", config);
 
             ActorRef collectingActor = system.actorOf(Props.create(EventCollector.class), "collectingActor");
-
             actors.put(port,collectingActor);
         });
 
         Thread.sleep(10000);
-
         /*使用JDK中的scheduleAtFixedRate,每5秒发送一次日志给Collector*/
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 

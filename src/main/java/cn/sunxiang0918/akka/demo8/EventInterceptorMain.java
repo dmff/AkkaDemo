@@ -18,10 +18,8 @@ public class EventInterceptorMain {
                 withFallback(ConfigFactory.load("demo8"));
 
         final ActorSystem system = ActorSystem.create("event-cluster-system", config);
-
         /*实例化EventInterceptor Actor*/
         ActorRef interceptingActor = system.actorOf(Props.create(EventInterceptor.class), "interceptingActor");
-
         system.log().info("Processing Actor: " + interceptingActor);
     }
 }

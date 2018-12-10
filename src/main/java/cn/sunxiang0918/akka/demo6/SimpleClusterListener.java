@@ -19,8 +19,7 @@ public class SimpleClusterListener extends UntypedActor {
 
     @Override
     public void preStart() {
-        cluster.subscribe(getSelf(), ClusterEvent.initialStateAsEvents(),
-                MemberEvent.class, UnreachableMember.class);
+        cluster.subscribe(getSelf(), ClusterEvent.initialStateAsEvents(), MemberEvent.class, UnreachableMember.class);
     }
 
     @Override

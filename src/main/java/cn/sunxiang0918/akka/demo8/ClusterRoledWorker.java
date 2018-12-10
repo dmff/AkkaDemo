@@ -14,13 +14,13 @@ import java.util.List;
 
 public abstract class ClusterRoledWorker extends UntypedActor{
 
-    /*记录日志*/
+    /**记录日志*/
     protected LoggingAdapter log = Logging.getLogger(getContext().system(), this);
 
-    /*集群系统*/
+    /**集群系统*/
     protected Cluster cluster = Cluster.get(getContext().system());
 
-    // 用来缓存下游注册过来的子系统ActorRef
+    /**用来缓存下游注册过来的子系统ActorRef*/
     protected List<ActorRef> workers = new ArrayList<>();
 
     @Override
@@ -38,7 +38,6 @@ public abstract class ClusterRoledWorker extends UntypedActor{
     /**
      * 下游子系统节点发送注册消息
      */
-
     protected void register(Member member,String actorPath) {
         ActorSelection actorSelection = getContext().actorSelection(actorPath);
         /*发送注册消息*/

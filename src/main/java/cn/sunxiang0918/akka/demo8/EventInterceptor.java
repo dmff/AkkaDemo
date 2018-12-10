@@ -1,5 +1,10 @@
 package cn.sunxiang0918.akka.demo8;
 
+import akka.actor.Terminated;
+import akka.cluster.ClusterEvent;
+import akka.cluster.Member;
+import akka.cluster.MemberStatus;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -8,19 +13,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import akka.actor.Terminated;
-import akka.cluster.ClusterEvent;
-import akka.cluster.Member;
-import akka.cluster.MemberStatus;
-
 public class EventInterceptor extends ClusterRoledWorker {
 
     private AtomicInteger interceptedRecords = new AtomicInteger(0);
 
-    /*IP地址的正则表达式*/
+    /**IP地址的正则表达式*/
     private Pattern IP_PATTERN = Pattern.compile("[^\\s]+\\s+\\[([^\\]]+)\\].+\"(\\d+\\.\\d+\\.\\d+\\.\\d+)");
 
-    /*黑名单*/
+    /**黑名单*/
     private List<String> blackIpList = Arrays.asList("5.9.116.101", "103.42.176.138", "123.182.148.65", "5.45.64.205",
             "27.159.226.192", "76.164.228.218", "77.79.178.186", "104.200.31.117",
             "104.200.31.32", "104.200.31.238", "123.182.129.108", "220.161.98.39",
